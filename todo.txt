@@ -1,0 +1,1 @@
+make drawing class a universal class with interface so as to use it as reusable

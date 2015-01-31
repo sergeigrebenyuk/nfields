@@ -1,0 +1,64 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Lens - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Temp\RSPF4.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Debug/Lens.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\PROJECTS\Lens\LensDoc.cpp"
+]
+Creating command line "cl.exe @C:\Temp\RSPF4.tmp" 
+Creating temporary file "C:\Temp\RSPF5.tmp" with contents
+[
+OPENGL32.LIB GLU32.LIB Vfw32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Lens.pdb" /debug /machine:I386 /out:"Debug/Lens.exe" /pdbtype:sept 
+.\Debug\AviFile.obj
+.\Debug\ChildFrm.obj
+.\Debug\GLEnabledView.obj
+.\Debug\Lens.obj
+.\Debug\LensDoc.obj
+.\Debug\LensView.obj
+.\Debug\MainFrm.obj
+.\Debug\StatDlg.obj
+.\Debug\StdAfx.obj
+.\Debug\Lens.res
+]
+Creating command line "link.exe @C:\Temp\RSPF5.tmp"
+<h3>Output Window</h3>
+Compiling...
+LensDoc.cpp
+C:\PROJECTS\Lens\LensDoc.cpp(179) : warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(183) : warning C4244: '=' : conversion from 'float' to 'unsigned __int16', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(187) : warning C4244: '=' : conversion from 'float' to 'unsigned __int16', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(356) : warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(358) : warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(364) : warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(365) : warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(370) : warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(371) : warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(372) : warning C4018: '>' : signed/unsigned mismatch
+C:\PROJECTS\Lens\LensDoc.cpp(373) : warning C4018: '>' : signed/unsigned mismatch
+C:\PROJECTS\Lens\LensDoc.cpp(374) : warning C4244: '=' : conversion from 'float' to 'unsigned __int16', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(377) : warning C4244: '=' : conversion from 'double' to 'unsigned __int16', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(392) : warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(393) : warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(398) : warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(399) : warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(400) : warning C4018: '>' : signed/unsigned mismatch
+C:\PROJECTS\Lens\LensDoc.cpp(401) : warning C4018: '>' : signed/unsigned mismatch
+C:\PROJECTS\Lens\LensDoc.cpp(402) : warning C4244: '=' : conversion from 'float' to 'unsigned __int16', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(405) : warning C4244: '=' : conversion from 'double' to 'unsigned __int16', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(424) : warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\PROJECTS\Lens\LensDoc.cpp(425) : warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+Linking...
+
+
+
+<h3>Results</h3>
+Lens.exe - 0 error(s), 23 warning(s)
+</pre>
+</body>
+</html>
