@@ -303,9 +303,9 @@ int CFieldSimulator::LoadStateFromFile(CFile &ar)
 	ar.Read(&X, sizeof(X));
 	ar.Read(&Y, sizeof(Y));
 
-	if (surf)  delete [] surf;				surf = (surface_type *)new char[sizeof(surface_type)*X*Y*3]; memset((void*)surf,0,sizeof(surface_type)*X*Y*3); 
-	if (states)delete [] states;			states = (field_type *)new char[sizeof(field_type)*X*Y]; memset((void*)states,0,sizeof(field_type)*X*Y); 
-	if (walls) delete [] walls;				walls = (field_type *)new char[sizeof(field_type)*X*Y]; memset((void*)walls,0,sizeof(field_type)*X*Y);
+	if (surf)  delete [] surf;	surf = (surface_type *)new char[sizeof(surface_type)*X*Y*3]; memset((void*)surf,0,sizeof(surface_type)*X*Y*3); 
+	if (states)delete [] states;	states = (field_type *)new char[sizeof(field_type)*X*Y]; memset((void*)states,0,sizeof(field_type)*X*Y); 
+	if (walls) delete [] walls;	walls = (field_type *)new char[sizeof(field_type)*X*Y]; memset((void*)walls,0,sizeof(field_type)*X*Y);
 	if (tonic_input) delete [] tonic_input;	tonic_input = (field_type *)new char[sizeof(field_type)*X*Y]; memset((void*)tonic_input,0,sizeof(field_type)*X*Y);
 
 	ar.Read((void*)surf, sizeof(surface_type)*X*Y*3);
@@ -364,12 +364,12 @@ void CFieldSimulator::ProcessTick(void)
 			}
 
 	// SIMULATION PART **********************************************************************************        
-	//	S[0] - input to the given cell
-	//  S[1] - V parameter of FN model
-	//	S[2] - W parameter of FN model
+	// S[0] - input to the given cell
+	// S[1] - V parameter of FN model
+	// S[2] - W parameter of FN model
 	// 1 Step. Calculating inputs to each cell.
-    // I = SUM( w_ij * SUM alpha(t-T_j-d_j)  )
-		for (int x=0; x < X; x++)
+	// I = SUM( w_ij * SUM alpha(t-T_j-d_j)  )
+	for (int x=0; x < X; x++)
 	    for (int y=0; y < Y; y++)
 		{	
 			int IDX = x+y*X;
@@ -377,7 +377,7 @@ void CFieldSimulator::ProcessTick(void)
 			//for each cell (x,y) ...
 			long double I = 0.0;
 			long double E = cells[IDX].S[1]; //membrane potential of the isopotential cell
-			long double Ee = 0.0;				 //reversal potential for the excitatory connections
+			long double Ee = 0.0;		 //reversal potential for the excitatory connections
 			int AFR = cells[IDX].AFRadius;
 			int cnt=0;
 			for(int k=-AFR; k<AFR; k++)
@@ -404,7 +404,6 @@ void CFieldSimulator::ProcessTick(void)
 				int SpikeN = cells[idx].ST_n;
 				long double delay = cells[IDX].D[int(_x+_y*AFR*2)]; //synaptic delay for given presynaptc cell
 				long double mI = 0.0;
-				
 				
 				//go through the array of spike times in given presynaptic cell
 				long double t_old = 0.0;
@@ -434,7 +433,6 @@ void CFieldSimulator::ProcessTick(void)
 			}
 			cells[IDX].S[0] = -I + tonic_input[IDX]; //assign PSP value to the first state variable of the postsynaptic (x,y) cell`
 		}
-		
 		// 2 Step. Calculating response of the each cell.
 	/*
 		#define C		0.281L		//membraine capacitance 281 pF
@@ -445,15 +443,16 @@ void CFieldSimulator::ProcessTick(void)
 		#define	tau_w	144.0L	//adaptation time constant 144ms
 		#define	a		0.004L //0.004		//subthreshold adaptation 4nS
 		#define	b		0.0805L	//spike-triggered adaptation 0.0805 nA
-*/ // m -3 mk -6 n -9 p -12
-		#define C		281.E-12L		//membraine capacitance 281 pF
-		#define gl		30.E-9L //0.3		//leak conductance 30nS
-		#define	El		-70.6E-3L	//leak reversal potential -70.6mV
-		#define	Vt		-50.4E-3L	//spike threshhold -50.4mV
-		#define	delta_t	2.E-3L	//slope factor 2mV
+	*/ 
+		// m -3 mk -6 n -9 p -12
+		#define C	281.E-12L	//membraine capacitance 281 pF
+		#define gl	30.E-9L 	//0.3		//leak conductance 30nS
+		#define	El	-70.6E-3L	//leak reversal potential -70.6mV
+		#define	Vt	-50.4E-3L	//spike threshhold -50.4mV
+		#define	delta_t	2.E-3L		//slope factor 2mV
 		#define	tau_w	144.E-3L	//adaptation time constant 144ms
-		#define	a		4.E-9L //0.004		//subthreshold adaptation 4nS
-		#define	b		0.0805E-9L	//spike-triggered adaptation 0.0805 nA
+		#define	a	4.E-9L 		//0.004		//subthreshold adaptation 4nS
+		#define	b	0.0805E-9L	//spike-triggered adaptation 0.0805 nA
 
 		for (int x=0; x < X; x++)
 		for (int y=0; y < Y; y++)
@@ -484,7 +483,6 @@ void CFieldSimulator::ProcessTick(void)
 
 				cells[IDX].SpikeTimes[cells[IDX].ST_n++] = Ticks;
 				//cells[IDX].SpikeTimes[cells[IDX].ST_n++].Cnt = 
-
 			}
 			else
 			{
@@ -492,18 +490,15 @@ void CFieldSimulator::ProcessTick(void)
 			long double	V1 = V + dT*VF;
 			long double	VF1 = (-gl*(V1 - El) + gl*delta_t*exp( (V1-Vt)/delta_t ) - W + I )/C;
 					
-					
 			long double	WF = (a*(V - El) - W)/tau_w;
 			long double	W1 = W+  dT*WF;
 			long double	WF1 = (a*(V - El) - W1)/tau_w;
 				
 					V = V + dT*(VF + VF1)/2.L;
 					W = W + dT*(WF + WF1)/2.L;
-
 			}
 			
 			if (V > 0.030L)	V = 0.030L;
-		
 
 			surf[x*3+y*X*3] = (V+0.090)*546125;
 			if (V>cells[IDX].max) cells[IDX].max = V;
@@ -511,22 +506,16 @@ void CFieldSimulator::ProcessTick(void)
 			cells[IDX].S[1] = V;
 			cells[IDX].S[2] = W;
 		}
-
-
 		// 3 Step. Do a tick.
 		Ticks++;
-
 				       
 	// SERVICE PART **************************************************************************************	  	 
-			// evoke callback function to render the field
-			(*RenderCallBack)(pContext);
-			Sleep(10);
-			
-			
+	      // evoke callback function to render the field
+	      (*RenderCallBack)(pContext);
+	      Sleep(10);
 	};
 	AfxMessageBox("If you see this message, some serious shit has happend!");
 	//pDoc->bRun = -1;
-
 	return;
 }
 // retrieves current command state of numeric core
@@ -643,8 +632,8 @@ void CFieldSimulator::GetAfferentFieldParams(float &edb, float &ede, float &ewb,
 	return;
 }
 
-//1.проверить масштаб времени альфа-функции
-//2.выяснить, почему постоянно увеличивается аргумент функции 
+//1.пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+//2.пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
 inline long double CFieldSimulator::AlphaFunc(long double t)
 	{
 		#define ts  15.0L
